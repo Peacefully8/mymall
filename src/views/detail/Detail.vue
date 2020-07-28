@@ -27,7 +27,7 @@
         v-if="topImg.length > 0"
         class="swiper"
       >
-        <!-- <Slide
+        <Slide
         v-for="(item,index) in topImg"
         :key="index"
       >
@@ -35,7 +35,7 @@
           :src="item"
           class="imgs"
         >
-      </Slide> -->
+      </Slide>
       </Swiper>
       <good-info :goodInfo="goodInfo"></good-info>
       <shop-info :shopInfo="shopInfo"></shop-info>
