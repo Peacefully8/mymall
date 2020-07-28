@@ -1,23 +1,52 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-
 Vue.use(VueRouter)
 
-  const routes = [
-  {
+
+const Home = () => import('views/Home/Home.vue')
+const Category = () => import('views/Category/Category')
+const Shop = () => import('views/Shop/Shop')
+const Profile = () => import('views/Profile/Profile')
+const Detail = () => import('views/detail/Detail')
+
+
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err);
+}
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
+
+
+const routes = [{
     path: '/',
-    name: 'Home',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/shop',
+    component: Shop
+  },
+  {
+    path: '/category',
+    component: Category
+  },
+  {
+    path: '/profile',
+    component: Profile
+  },
+  {
+    path: '/detail/:iid',
+    component: Detail
   }
+
+
 ]
 
 const router = new VueRouter({
@@ -25,5 +54,6 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
 
 export default router
